@@ -1,0 +1,357 @@
+/*
+ * AI WATCH TOWER — "Command Center Midnight" design system
+ * Deep navy-charcoal canvas, single electric indigo-blue beacon accent,
+ * IBM Plex Sans body, Space Grotesk display, IBM Plex Mono for data/IDs.
+ * Glass used sparingly; clean cards with 1px white/8% hairline borders.
+ */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-beacon: var(--beacon);
+  --color-beacon-dim: var(--beacon-dim);
+  --color-risk-low: var(--risk-low);
+  --color-risk-med: var(--risk-med);
+  --color-risk-high: var(--risk-high);
+  --color-risk-crit: var(--risk-crit);
+  --font-display: "Space Grotesk", sans-serif;
+  --font-sans: "IBM Plex Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+:root,
+.dark {
+  /* Command Center Midnight — the app is dark everywhere */
+  --background: oklch(0.155 0.012 265);
+  --foreground: oklch(0.93 0.004 250);
+  --card: oklch(0.185 0.015 265);
+  --card-foreground: oklch(0.93 0.004 250);
+  --popover: oklch(0.195 0.015 265);
+  --popover-foreground: oklch(0.93 0.004 250);
+  --primary: oklch(0.62 0.19 275);
+  --primary-foreground: oklch(0.985 0.005 275);
+  --secondary: oklch(0.225 0.018 265);
+  --secondary-foreground: oklch(0.85 0.005 250);
+  --muted: oklch(0.215 0.015 265);
+  --muted-foreground: oklch(0.62 0.015 260);
+  --accent: oklch(0.25 0.03 275);
+  --accent-foreground: oklch(0.93 0.004 250);
+  --destructive: oklch(0.6 0.21 25);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 13%);
+  --ring: oklch(0.62 0.19 275);
+  --radius: 0.7rem;
+  --chart-1: oklch(0.62 0.19 275);
+  --chart-2: oklch(0.72 0.15 265);
+  --chart-3: oklch(0.68 0.14 230);
+  --chart-4: oklch(0.5 0.14 280);
+  --chart-5: oklch(0.8 0.1 260);
+  --sidebar: oklch(0.135 0.012 265);
+  --sidebar-foreground: oklch(0.85 0.005 250);
+  --sidebar-primary: oklch(0.62 0.19 275);
+  --sidebar-primary-foreground: oklch(0.985 0.005 275);
+  --sidebar-accent: oklch(0.2 0.02 268);
+  --sidebar-accent-foreground: oklch(0.95 0.004 250);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.62 0.19 275);
+  /* Beacon accent */
+  --beacon: oklch(0.62 0.19 275);
+  --beacon-dim: oklch(0.62 0.19 275 / 16%);
+  /* Semantic risk palette (data colors, not brand) */
+  --risk-low: oklch(0.78 0.14 155);
+  --risk-med: oklch(0.8 0.15 80);
+  --risk-high: oklch(0.72 0.17 55);
+  --risk-crit: oklch(0.64 0.21 28);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "IBM Plex Sans", sans-serif;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
+  ::selection {
+    background: oklch(0.62 0.19 275 / 35%);
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1280px;
+    }
+  }
+
+  .font-display {
+    font-family: "Space Grotesk", sans-serif;
+  }
+
+  .font-mono {
+    font-family: "IBM Plex Mono", monospace;
+  }
+
+  /* Subtle signal-grid texture for hero and section backgrounds */
+  .signal-grid {
+    background-image:
+      linear-gradient(oklch(0.62 0.19 275 / 4%) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.62 0.19 275 / 4%) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  /* Hairline card used across the product */
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .glass-panel {
+    background: oklch(0.2 0.02 268 / 62%);
+    border: 1px solid oklch(1 0 0 / 11%);
+    border-radius: var(--radius);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  /* Risk beacon chips */
+  .risk-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+    border: 1px solid currentColor;
+    white-space: nowrap;
+  }
+  .risk-chip::before {
+    content: "";
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 9999px;
+    background: currentColor;
+  }
+  .risk-low {
+    color: var(--risk-low);
+    background: oklch(0.78 0.14 155 / 8%);
+  }
+  .risk-med {
+    color: var(--risk-med);
+    background: oklch(0.8 0.15 80 / 8%);
+  }
+  .risk-high {
+    color: var(--risk-high);
+    background: oklch(0.72 0.17 55 / 9%);
+  }
+  .risk-crit {
+    color: var(--risk-crit);
+    background: oklch(0.64 0.21 28 / 11%);
+  }
+
+  /* Micro-label (mono uppercase) */
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+}
+
+/* Signal line divider motif */
+.signal-line {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, oklch(0.62 0.19 275 / 45%), transparent);
+}
+.signal-line::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: var(--beacon);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px var(--beacon);
+}
+
+/* Soft beacon glow for wordmark marks and console accents */
+.beacon-glow {
+  filter: drop-shadow(0 0 8px oklch(0.62 0.19 275 / 60%));
+}
+
+/* Subtle vertical glow wash for dark panels (login brand side, hero right) */
+.beacon-wash {
+  background:
+    radial-gradient(ellipse 55% 38% at 50% 18%, oklch(0.62 0.19 275 / 14%), transparent 70%),
+    radial-gradient(ellipse 40% 30% at 78% 62%, oklch(0.62 0.19 275 / 7%), transparent 70%);
+}
+
+/* Console scanline texture for branded dark surfaces */
+.scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    oklch(0.62 0.19 275 / 3%) 0px,
+    oklch(0.62 0.19 275 / 3%) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+
+/* Slow rising telemetry line (hero / login artifacts) */
+@keyframes scanrise {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+/* Radar sweep animation for hero */
+@keyframes radar-sweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.radar-sweep {
+  animation: radar-sweep 36s linear infinite;
+  transform-origin: center;
+}
+
+/* Breathing glow */
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+/* Critical alert pulse */
+@keyframes crit-pulse {
+  0%,
+  100% {
+    border-color: oklch(0.64 0.21 28 / 55%);
+    box-shadow: 0 0 0 0 oklch(0.64 0.21 28 / 18%);
+  }
+  50% {
+    border-color: oklch(0.64 0.21 28 / 95%);
+    box-shadow: 0 0 0 4px oklch(0.64 0.21 28 / 0%);
+  }
+}
+.crit-pulse {
+  animation: crit-pulse 2.4s ease-in-out infinite;
+}
+
+/* Entrance reveal for landing sections */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+      transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .radar-sweep,
+  .breathe,
+  .crit-pulse {
+    animation: none;
+  }
+}
